@@ -37,7 +37,7 @@ userRouter.post('/login',async(req,res)=>{
                 const hashCheck = await bcrypt.compare(password, user.password);
                 const token = jwt.sign({ "userId": user._id }, "user", { expiresIn: "1h" });
                 if (hashCheck) {
-                    res.status(200).send({ msg: "User logged in", status: "success", token });
+                    res.status(200).send({ msg: "User logged in", status:"success",token});
                 } else {
                     res.status(400).send({ msg: "Invalid password" });
                 }
