@@ -5,9 +5,10 @@ const auth=(req,res,next) => {
     if(token){
         try {
         const decoded = jwt.verify(token,'user');
-        console.log('decoded',decoded)
+        console.log('decoded.userId',decoded.userId)
         if(decoded){
             req.body.userId=decoded.userId;
+            console.log('req.body before adding',req.body)
             next();
         }
         } catch (e) {

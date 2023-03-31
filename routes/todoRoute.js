@@ -42,6 +42,7 @@ todosRoute.delete('/delete/:id',async(req,res)=>{
 })
 
 todosRoute.post('/add',async(req,res)=>{
+    console.log('req.body in adding',req.body)
     try {
         let todo = new TodoModel({...req.body,status:false});
         await todo.save();
