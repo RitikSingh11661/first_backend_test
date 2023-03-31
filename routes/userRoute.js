@@ -11,7 +11,6 @@ userRouter.post('/register',async(req,res)=>{
         res.status(400).send({"msg":"not present details"})
     }
     try {
-        if(email && username && password){
             const preCheck = await UserModel.findOne({ email });
                 if (!preCheck) {
                     const hashedPassword = await bcrypt.hash(password, 7);
@@ -21,9 +20,6 @@ userRouter.post('/register',async(req,res)=>{
                 } else {
                     res.status(400).send({ msg: "User already registered" })
                 }
-            } else {
-                res.status(400).send({ msg: "Invalid data format" })
-            }
     } catch (e) {
         res.status(400).send({ msg: e.message });
     }
@@ -31,7 +27,9 @@ userRouter.post('/register',async(req,res)=>{
 
 userRouter.post('/login',async(req,res)=>{
     const {email,password} = req.body;
-    console.log('email',email)
+    if(!email || !password){
+        res.status(400).send({"msg":"not present details"})
+    }
     try {
         if(email && password){
             const user = await UserModel.findOne({ email })
