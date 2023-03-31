@@ -4,6 +4,7 @@ require('dotenv').config()
 const { connection } = require('./db');
 const { todosRoute } = require('./routes/todoRoute');
 const { userRouter } = require('./routes/userRoute');
+const { auth } = require('./middlewares/auth');
 const app = express();
 
 app.use(express.json())
@@ -14,6 +15,7 @@ app.get('/',(req,res)=>{
 })
 
 app.use('/user',userRouter)
+app.use(auth)
 app.use('/todos',todosRoute)
 
 app.listen(process.env.port,async()=>{
@@ -25,4 +27,3 @@ app.listen(process.env.port,async()=>{
     }
     console.log(`Server is live at port ${process.env.port}`);
 })
-

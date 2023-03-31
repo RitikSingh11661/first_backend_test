@@ -6,6 +6,7 @@ const userRouter = Router();
 
 userRouter.post('/register',async(req,res)=>{
     const {email,username,password} = req.body;
+    console.log('email',email)
     try {
         if(email && username && password){
             const preCheck = await UserModel.findOne({ email });
@@ -27,6 +28,7 @@ userRouter.post('/register',async(req,res)=>{
 
 userRouter.post('/login',async(req,res)=>{
     const {email,password} = req.body;
+    console.log('email',email)
     try {
         if(email && password){
             const user = await UserModel.findOne({ email })
