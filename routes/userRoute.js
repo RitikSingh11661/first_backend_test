@@ -35,7 +35,7 @@ userRouter.post('/login',async(req,res)=>{
             const user = await UserModel.findOne({ email })
             if(user){
                 const hashCheck = await bcrypt.compare(password, user.password);
-                const token = jwt.sign({ "userId": user._id }, "decordash", { expiresIn: "1h" });
+                const token = jwt.sign({ "userId": user._id }, "user", { expiresIn: "1h" });
                 if (hashCheck) {
                     res.status(200).send({ msg: "User logged in", status: "success", token });
                 } else {
