@@ -3,11 +3,14 @@ const { TodoModel } = require('../models/todoModel');
 const todosRoute=Router();
 
 todosRoute.get('/',async(req,res)=>{
-    const userID = req.body.userID;
-    if(userID){
-        let todos = await TodoModel.find({"userID":userID});
-        res.status(200).send({"data":todos})
-    }else res.status(400).send({"msg":"User don't have todos"})
+    const userId = req.body.userId;
+    try{
+        let todos = await TodoModel.find({"userId":userId});
+        if(todos)res.status(200).send({"data":todos});
+        else res.status(400).send({"msg":"User don't have todos"})
+    }catch (e){
+        res.status(400).send({"msg":e.message})
+    } 
 })
 
 todosRoute.get('/:id',async(req,res)=>{
