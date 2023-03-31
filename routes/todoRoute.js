@@ -34,14 +34,8 @@ todosRoute.patch('/update/:id',async(req,res)=>{
 todosRoute.patch('/toggle/:id',async(req,res)=>{
     try {
         let doc = await TodoModel.findById(req.params.id);
-        // todo={...todo,status:!todo.status}
-        // let newTodo=
-
-        console.log('doc.status',doc.status)
-        doc.status =!doc.status;
         let todo={...doc};
-        console.log('todo2',todo)
-        await TodoModel.findByIdAndUpdate({_id:req.params.id},todo);
+        await TodoModel.findByIdAndUpdate({_id:req.params.id},{...todo,status:!todo.status});
         res.status(200).send('updated todo')
     } catch (e) {
         res.status(400).send({"msg":e.message});
