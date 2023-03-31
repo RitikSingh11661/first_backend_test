@@ -36,6 +36,7 @@ todosRoute.patch('/toggle/:id',async(req,res)=>{
         let doc = await TodoModel.findById(req.params.id);
         let todo={...doc};
         todo.status=!todo.status;
+        console.log('todo',todo)
         await TodoModel.findByIdAndUpdate({_id:req.params.id},todo);
         res.status(200).send('updated todo')
     } catch (e) {
