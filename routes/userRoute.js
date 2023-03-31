@@ -7,6 +7,9 @@ const userRouter = Router();
 userRouter.post('/register',async(req,res)=>{
     const {email,username,password} = req.body;
     console.log('email',email)
+    if(!email || !username || !password){
+        res.status(400).send({"msg":"not present details"})
+    }
     try {
         if(email && username && password){
             const preCheck = await UserModel.findOne({ email });
