@@ -2,7 +2,6 @@ const jwt = require('jsonwebtoken');
 
 const auth=(req,res,next) => {
     const token = req.headers.authorization;
-    console.log('token',token)
     if(token){
         try {
         const decoded = jwt.verify(token,'user');
@@ -11,8 +10,8 @@ const auth=(req,res,next) => {
             req.body.userID=decoded.userID;
             next();
         }
-        } catch (error) {
-            res.status(400).send({"err":"You are not authorized "})
+        } catch (e) {
+            res.status(400).send({"err":e})
         }
     }else res.status(400).send({"err":"You are not authorized 2"})
    
